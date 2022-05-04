@@ -123,12 +123,12 @@ N/A
 
 ##### HTTP Response Body Example
 
-{
-    "_id": "6271b220df0d7798cb148a66",
-    "name": "Aline",
-    "email": "aline@email.com",
-    "age": 0,
-    "createdAt": "2022-05-03T22:52:16.697Z",
-    "updatedAt": "2022-05-04T00:41:47.632Z",
-    "__v": 84
-}
+    {
+        "_id": "6271b220df0d7798cb148a66",
+        "name": "Aline",
+        "email": "aline@email.com",
+        "age": 0,
+        "createdAt": "2022-05-03T22:52:16.697Z",
+        "updatedAt": "2022-05-04T00:41:47.632Z",
+        "__v": 84
+    }
