@@ -27,7 +27,7 @@ router.post('/users/login', cors(), async (req, res) => {
         res.send({ user, token })
 
     } catch (e) {
-        res.status(400).send() 
+        res.status(404).send({error: 'User or password invalid'}) 
     }
 })
 
