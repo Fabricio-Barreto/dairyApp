@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 
-const taskSchema = new mongoose.Schema({
+const moodSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
         trim: true
     },
-    completed: {
-        type: Boolean,
+    mood: {
+        type: String,
         default: false
     },
     owner: {
@@ -19,6 +19,6 @@ const taskSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const Task = mongoose.model('Task', taskSchema)
+const Mood = mongoose.model('Mood', moodSchema)
 
-module.exports = Task
+module.exports = Mood
