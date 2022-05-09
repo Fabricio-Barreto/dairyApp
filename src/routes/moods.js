@@ -1,6 +1,6 @@
 const express = require('express')
 const Mood = require('../models/mood')
-const auth = require('../middleware/auth')
+const auth = require('../middlewares/auth')
 const router = new express.Router()
 const cors = require('cors')
 
