@@ -24,24 +24,18 @@ router.post('/moods', auth, cors(), async (req, res) => {
 router.get('/moods', auth, cors(), async (req, res) => {
     try {
         const match = {}
-        // const sort = {}
+        
 
         if (req.query.completed) {
             match.completed = req.query.completed === 'true'
         }
 
-        /*  implement sort methods for get moods */
-        // if (req.query.sortBy) {
-        //     const parts = req.query.sortBy.split(':')
-        //     sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
-        // }
-
         if (typeof match.completed === "undefined") {
             const mood = await Mood.find({ owner: req.user._id}).limit(parseInt(req.query.limit)).skip(req.query.skip)
-            //console.log('2')
+
             res.send(mood)
         } else {
-            //console.log("1")
+
             const mood = await Mood.find({ owner: req.user._id, completed: match.completed}).limit(parseInt(req.query.limit)).skip(parseInt(req.query.skip))
             res.send(mood)
         }
@@ -55,7 +49,6 @@ router.get('/moods/:id', auth, cors(), async (req, res) => {
     const _id = req.params.id
 
     try {
-        //const mood = await Mood.findById(_id)
         const mood = await Mood.findOne({ _id, owner: req.user._id })
 
         if (!mood) {
@@ -71,7 +64,7 @@ router.get('/moods/:id', auth, cors(), async (req, res) => {
 
 router.patch('/moods/:id', auth, cors(), async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['description', 'completed']
+    const allowedUpdates = ['description', 'mood']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {

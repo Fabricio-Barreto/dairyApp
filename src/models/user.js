@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
         }
     },
 
+    birthday: {
+        type: String,
+        default: null
+    },
+
     tokens: [{
         token: {
             type: String,
@@ -55,35 +60,22 @@ const userSchema = new mongoose.Schema({
 
     biological_sex: {
         type: String,
-        trim: true
-    },
-
-    food: {
-        type: String,
-        trim: true
-    },
-
-    biological_sex: {
-        type: String,
-        trim: true
-    },
-
-    food: {
-        type: String,
-        trim: true
+        trim: true,
+        default: null
     },
 
     sexual_orientation: {
         type: String,
-        trim: true
+        trim: true,
+        default: null
     }
 
 }, {
     timestamps: true
 })
 
-userSchema.virtual('tasks', {
-    ref: 'Task',
+userSchema.virtual('moods', {
+    ref: 'Mood',
     localField: '_id',
     foreignField: 'owned'
 })
@@ -142,6 +134,30 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('remove', async function (next) {
     const user = this
     await Task.deleteMany({ owner: user._id })
+    next()
+})
+
+userSchema.pre('save', async function(next) {
+    const user = this
+
+    year = user.birthday.slice(0, 4)
+    month = user.birthday.slice(6, 7)
+    day = user.birthday.slice(8, 10)
+
+    var today = new Date()
+
+    idade = today.getFullYear() - year
+
+    if (today.getMonth() + 1 > month) {
+        idade += 1
+    } else if (today.getMonth() +1 == month) {
+        if (today.getDate() >= day) {
+            idade += 1
+        }
+    }
+
+    user.age = idade
+
     next()
 })
 

@@ -6,19 +6,30 @@ const moodSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+
     mood: {
         type: String,
-        default: false
+        trim: true
     },
+
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     },
+
     labels: {
         type: String,
-        trim: true
-    }
+        trim: true,
+        default: null
+    },
+
+    food: {
+        type: String,
+        trim: true,
+        default: null
+    },
+
 }, {
     timestamps: true
 })
