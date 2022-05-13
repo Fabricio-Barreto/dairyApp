@@ -68,6 +68,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: null
+    },
+
+    already_created: {
+        type: Boolean,
+        default: false
     }
 
 }, {
@@ -140,23 +145,26 @@ userSchema.pre('remove', async function (next) {
 userSchema.pre('save', async function(next) {
     const user = this
 
-    year = user.birthday.slice(0, 4)
-    month = user.birthday.slice(6, 7)
-    day = user.birthday.slice(8, 10)
+    if (user.already_created == false) {
+        year = user.birthday.slice(0, 4)
+        month = user.birthday.slice(6, 7)
+        day = user.birthday.slice(8, 10)
 
-    var today = new Date()
+        var today = new Date()
 
-    idade = today.getFullYear() - year
+        idade = today.getFullYear() - year
 
-    if (today.getMonth() + 1 > month) {
-        idade += 1
-    } else if (today.getMonth() +1 == month) {
-        if (today.getDate() >= day) {
+        if (today.getMonth() + 1 > month) {
             idade += 1
+        } else if (today.getMonth() +1 == month) {
+            if (today.getDate() >= day) {
+                idade += 1
+            }
         }
-    }
 
-    user.age = idade
+        user.age = idade
+        user.already_created = true
+    }
 
     next()
 })
