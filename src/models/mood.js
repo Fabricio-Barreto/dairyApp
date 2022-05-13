@@ -14,6 +14,10 @@ const moodSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    labels: {
+        type: String,
+        trim: true
     }
 }, {
     timestamps: true

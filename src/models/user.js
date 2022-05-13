@@ -51,7 +51,33 @@ const userSchema = new mongoose.Schema({
 
     avatar: {
         type: Buffer,
+    },
+
+    biological_sex: {
+        type: String,
+        trim: true
+    },
+
+    food: {
+        type: String,
+        trim: true
+    },
+
+    biological_sex: {
+        type: String,
+        trim: true
+    },
+
+    food: {
+        type: String,
+        trim: true
+    },
+
+    sexual_orientation: {
+        type: String,
+        trim: true
     }
+
 }, {
     timestamps: true
 })
