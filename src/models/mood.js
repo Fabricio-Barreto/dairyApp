@@ -25,7 +25,7 @@ const moodSchema = new mongoose.Schema({
     },
 
     food: {
-        type: String,
+        type: Array,
         trim: true,
         default: null
     },
