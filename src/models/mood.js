@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const moodSchema = new mongoose.Schema({
     description: {
         type: String,
@@ -9,7 +10,13 @@ const moodSchema = new mongoose.Schema({
 
     mood: {
         type: String,
-        trim: true
+        trim: true,
+        validate(value) {
+            var arr = ['sad', 'happy', 'angry', 'surprised', 'indifferent', 'inlove']
+            if(!arr.includes(value)) {
+                throw new Error('Mood is invalid, Mood must be ' + '[' + arr + ']')
+            }
+        }
     },
 
     owner: {
@@ -27,7 +34,16 @@ const moodSchema = new mongoose.Schema({
     food: {
         type: Array,
         trim: true,
-        default: null
+        validate(value) {
+            var foods = ['fruit', 'legume', 'chicken', 'candy', 'fastFood', 'liquid', 'pasta', 'homemade']
+
+            value.map((food) => {
+                if(!foods.includes(food)){
+                    throw new Error('Mood is invalid, Mood must be ' + '[' + foods + ']')
+                }
+            })
+
+        }
     },
 
 }, {

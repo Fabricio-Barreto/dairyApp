@@ -44,7 +44,13 @@ const userSchema = new mongoose.Schema({
 
     birthday: {
         type: String,
-        default: null
+        default: null,
+        required: true,
+        validate(value) {
+            if(!validator.isDate(value)){
+                throw new Error('Date is not valid')
+            }
+        }
     },
 
     tokens: [{
@@ -61,13 +67,13 @@ const userSchema = new mongoose.Schema({
     biological_sex: {
         type: String,
         trim: true,
-        default: null
-    },
-
-    sexual_orientation: {
-        type: String,
-        trim: true,
-        default: null
+        required: true,
+        validate(value) {
+            var arr = ['male', 'female']
+            if(!arr.includes(value)) {
+                throw new Error('Sex is invalid, Sex must be ' + '[' + arr + ']')
+            }
+        }
     },
 
     already_created: {
@@ -153,14 +159,6 @@ userSchema.pre('save', async function(next) {
         var today = new Date()
 
         idade = today.getFullYear() - year - 1
-
-        console.log(idade)
-        console.log(today.getFullYear())
-        console.log(today)
-        console.log(year)
-        console.log(month)
-        console.log(day)
-        console.log(today.getMonth())
 
         if (today.getMonth() + 1 > month) {
             idade += 1
