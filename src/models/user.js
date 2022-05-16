@@ -147,16 +147,24 @@ userSchema.pre('save', async function(next) {
 
     if (user.already_created == false) {
         year = user.birthday.slice(0, 4)
-        month = user.birthday.slice(6, 7)
+        month = user.birthday.slice(5, 7)
         day = user.birthday.slice(8, 10)
 
         var today = new Date()
 
-        idade = today.getFullYear() - year
+        idade = today.getFullYear() - year - 1
+
+        console.log(idade)
+        console.log(today.getFullYear())
+        console.log(today)
+        console.log(year)
+        console.log(month)
+        console.log(day)
+        console.log(today.getMonth())
 
         if (today.getMonth() + 1 > month) {
             idade += 1
-        } else if (today.getMonth() +1 == month) {
+        } else if (today.getMonth() + 1 == month) {
             if (today.getDate() >= day) {
                 idade += 1
             }
