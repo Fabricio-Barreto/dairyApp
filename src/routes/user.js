@@ -118,7 +118,7 @@ router.get('/users/:id/avatar', cors(), async (req, res) => {
             throw new Error()
         }
 
-        res.set('Content-Type', 'image/png')
+        res.set('Content-Type', 'image/jpeg')
         res.send(user.avatar)
     }catch (e) {
         res.status(404).send()
